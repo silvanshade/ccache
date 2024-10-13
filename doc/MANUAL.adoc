@@ -1824,14 +1824,22 @@ increase the statistics counter "`Preprocessing failed`" (if the non-precompiled
 header file is not available).
 
 
-== C++ modules
+== C++20 standard modules
 
-Ccache has support for Clang's `-fmodules` option. In practice ccache only
-additionally hashes `module.modulemap` files; it does not know how Clang
-handles its cached binary form of modules so those are ignored. This should not
-matter in practice: as long as everything else (including `module.modulemap`
-files) is the same the cached result should work. Still, you must set
-<<config_sloppiness,*sloppiness*>> to *modules* to allow caching.
+TBA
+
+
+== Clang C++ modules
+
+Ccache has support for Clang's non-standard C++ modules feature through the
+use of the `-fmodules` option and `module.modulemap` files.
+
+In practice ccache only additionally hashes the `module.modulemap` files;
+it does not know how Clang handles its cached binary form of modules so those
+are ignored. This should not matter in practice: as long as everything else
+(including `module.modulemap` files) is the same the cached result should work.
+Still, you must set <<config_sloppiness,*sloppiness*>> to *modules* to allow
+caching.
 
 You must use both <<The direct mode,*direct mode*>> and
 <<The depend mode,*depend mode*>>. When using
