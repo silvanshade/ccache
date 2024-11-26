@@ -1078,6 +1078,18 @@ write_result(Context& ctx,
   if (!stdout_data.empty()) {
     serializer.add_data(core::Result::FileType::stdout_output, stdout_data);
   }
+#ifdef CXX20_MODULE_FEATURES
+  if (ctx.args_info.cxx_modules_generating_bmi
+      && !serializer.add_file(core::Result::FileType::cxx_modules_bmi, ctx.args_info.cxx_modules_output_bmi)) {
+    LOG("C++20 modules BMI file {} missing", ctx.args_info.cxx_modules_output_bmi);
+    return false;
+  }
+  if (ctx.args_info.cxx_modules_generating_bmi
+      && !serializer.add_file(core::Result::FileType::cxx_modules_ddi, ctx.args_info.cxx_modules_output_ddi)) {
+    LOG("C++20 modules p1689 dependency file {} missing", ctx.args_info.cxx_modules_output_ddi);
+    return false;
+  }
+#endif
   if (ctx.args_info.expect_output_obj
       && !serializer.add_file(core::Result::FileType::object,
                               ctx.args_info.output_obj)) {
